@@ -5,4 +5,4 @@ recursive-include src *.py
 recursive-include tests *.py *.json
 recursive-include examples *.txt *.json *.md *.sh
 include README.md LICENSE NOTICE.md CITATION.cff CONTRIBUTING.md pyproject.toml
-include docs/CLI.md docs/FORMAT.md docs/NUTZUNG.md docs/WIEDERHERSTELLUNG.md docs/AUSBAU.md
+include docs/CLI.md docs/FORMAT.md docs/NUTZUNG.md docs/WIEDERHERSTELLUNG.md docs/AUSBAU.md docs/PRUEFSTAND.md
