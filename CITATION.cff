@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+title: dh-provenance-journal
+version: 0.1.0
+type: software
+message: If you use this software, please cite it as below.
+license: MIT
+abstract: Append-only provenance journal with hash chaining (SHA-256 or HMAC)
+  for digital humanities research data. Package provenance_journal, CLI
+  provjournal. Standard library only.
+authors:
+  - given-names: Klaus
+    family-names: Behnam Shad
+repository-code: https://github.com/klausbehnamshad/dh-provenance-journal

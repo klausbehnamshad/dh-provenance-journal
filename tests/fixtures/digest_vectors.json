@@ -1,0 +1,211 @@
+{
+  "vectors": [
+    {
+      "id": "sha256-ascii",
+      "mode": "sha256",
+      "inputs": {
+        "seq": 7,
+        "at": "2026-10-03T12:00:00+00:00",
+        "kind": "source.ingested",
+        "record_id": "rec-42",
+        "payload": {
+          "record_id": "rec-42",
+          "sha256": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a",
+          "media_type": "text/plain",
+          "filename": "quelle.txt",
+          "bytes": 18
+        },
+        "prev": "abababababababababababababababababababababababababababababababab",
+        "operation_intent_sha256": null,
+        "intent_wire": "missing",
+        "key_hex": null
+      },
+      "blob": "{\"at\":\"2026-10-03T12:00:00+00:00\",\"kind\":\"source.ingested\",\"payload\":{\"bytes\":18,\"filename\":\"quelle.txt\",\"media_type\":\"text/plain\",\"record_id\":\"rec-42\",\"sha256\":\"9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a\"},\"prev\":\"abababababababababababababababababababababababababababababababab\",\"record_id\":\"rec-42\",\"seq\":7}",
+      "blob_encoding": "utf-8",
+      "expected_digest": "806a2c67d89f45e6e0cdd0780d8c453122df230746224cc2c497c2859eefd677"
+    },
+    {
+      "id": "hmac-ascii",
+      "mode": "hmac",
+      "inputs": {
+        "seq": 7,
+        "at": "2026-10-03T12:00:00+00:00",
+        "kind": "source.ingested",
+        "record_id": "rec-42",
+        "payload": {
+          "record_id": "rec-42",
+          "sha256": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a",
+          "media_type": "text/plain",
+          "filename": "quelle.txt",
+          "bytes": 18
+        },
+        "prev": "abababababababababababababababababababababababababababababababab",
+        "operation_intent_sha256": null,
+        "intent_wire": "missing",
+        "key_hex": "6b65792d31323334353637383930313233343536"
+      },
+      "blob": "{\"at\":\"2026-10-03T12:00:00+00:00\",\"kind\":\"source.ingested\",\"payload\":{\"bytes\":18,\"filename\":\"quelle.txt\",\"media_type\":\"text/plain\",\"record_id\":\"rec-42\",\"sha256\":\"9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a\"},\"prev\":\"abababababababababababababababababababababababababababababababab\",\"record_id\":\"rec-42\",\"seq\":7}",
+      "blob_encoding": "utf-8",
+      "expected_digest": "9e73d599d7e0641684a6af79761498c051393c4dae1f0bc96773b7e18439efc4"
+    },
+    {
+      "id": "sha256-unicode",
+      "mode": "sha256",
+      "inputs": {
+        "seq": 3,
+        "at": "2026-10-03T12:01:00+00:00",
+        "kind": "decision.recorded",
+        "record_id": "rec-42",
+        "payload": {
+          "artifact": "auswertung.txt",
+          "subject_sha256": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a",
+          "verdict": "ACCEPT",
+          "reference": "PI-1",
+          "actor": "M. Müller",
+          "at": "2026-10-03T12:00:00+00:00",
+          "note": "Grüße — geprüft ✓"
+        },
+        "prev": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+        "operation_intent_sha256": null,
+        "intent_wire": "missing",
+        "key_hex": null
+      },
+      "blob": "{\"at\":\"2026-10-03T12:01:00+00:00\",\"kind\":\"decision.recorded\",\"payload\":{\"actor\":\"M. Müller\",\"artifact\":\"auswertung.txt\",\"at\":\"2026-10-03T12:00:00+00:00\",\"note\":\"Grüße — geprüft ✓\",\"reference\":\"PI-1\",\"subject_sha256\":\"9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a\",\"verdict\":\"ACCEPT\"},\"prev\":\"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\",\"record_id\":\"rec-42\",\"seq\":3}",
+      "blob_encoding": "utf-8",
+      "expected_digest": "7cd2b28207dd2941dea47e347d1ae010658ddd6b1280e7e39541196ebf845190"
+    },
+    {
+      "id": "hmac-unicode",
+      "mode": "hmac",
+      "inputs": {
+        "seq": 3,
+        "at": "2026-10-03T12:01:00+00:00",
+        "kind": "decision.recorded",
+        "record_id": "rec-42",
+        "payload": {
+          "artifact": "auswertung.txt",
+          "subject_sha256": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a",
+          "verdict": "ACCEPT",
+          "reference": "PI-1",
+          "actor": "M. Müller",
+          "at": "2026-10-03T12:00:00+00:00",
+          "note": "Grüße — geprüft ✓"
+        },
+        "prev": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+        "operation_intent_sha256": null,
+        "intent_wire": "missing",
+        "key_hex": "6b65792d31323334353637383930313233343536"
+      },
+      "blob": "{\"at\":\"2026-10-03T12:01:00+00:00\",\"kind\":\"decision.recorded\",\"payload\":{\"actor\":\"M. Müller\",\"artifact\":\"auswertung.txt\",\"at\":\"2026-10-03T12:00:00+00:00\",\"note\":\"Grüße — geprüft ✓\",\"reference\":\"PI-1\",\"subject_sha256\":\"9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a\",\"verdict\":\"ACCEPT\"},\"prev\":\"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\",\"record_id\":\"rec-42\",\"seq\":3}",
+      "blob_encoding": "utf-8",
+      "expected_digest": "ebe90c345b6da3de26891eb98a590e8239533f33f70c93b0f89a1faa44baec27"
+    },
+    {
+      "id": "sha256-record-id-null",
+      "mode": "sha256",
+      "inputs": {
+        "seq": 1,
+        "at": "2026-10-03T12:00:00+00:00",
+        "kind": "workspace.initialised",
+        "record_id": null,
+        "payload": {
+          "profile": "research-basic-v1",
+          "root": ".",
+          "version": "v0.1"
+        },
+        "prev": "0000000000000000000000000000000000000000000000000000000000000000",
+        "operation_intent_sha256": null,
+        "intent_wire": "missing",
+        "key_hex": null
+      },
+      "blob": "{\"at\":\"2026-10-03T12:00:00+00:00\",\"kind\":\"workspace.initialised\",\"payload\":{\"profile\":\"research-basic-v1\",\"root\":\".\",\"version\":\"v0.1\"},\"prev\":\"0000000000000000000000000000000000000000000000000000000000000000\",\"record_id\":null,\"seq\":1}",
+      "blob_encoding": "utf-8",
+      "expected_digest": "7ae3c6f07e3c4386f41feb74a421a5ab4f7dbf19dccdd083c105dab9d435f409"
+    },
+    {
+      "id": "sha256-intent-null",
+      "mode": "sha256",
+      "inputs": {
+        "seq": 2,
+        "at": "2026-10-03T12:00:01+00:00",
+        "kind": "record.registered",
+        "record_id": "rec-42",
+        "payload": {
+          "record_id": "rec-42",
+          "profile": "research-basic-v1"
+        },
+        "prev": "efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef",
+        "operation_intent_sha256": null,
+        "intent_wire": "null",
+        "key_hex": null
+      },
+      "blob": "{\"at\":\"2026-10-03T12:00:01+00:00\",\"kind\":\"record.registered\",\"payload\":{\"profile\":\"research-basic-v1\",\"record_id\":\"rec-42\"},\"prev\":\"efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef\",\"record_id\":\"rec-42\",\"seq\":2}",
+      "blob_encoding": "utf-8",
+      "expected_digest": "d33c6110a4a8f8e9185e7459c81e8b68b7981e6722b13d94811f9ec1dcae1937"
+    },
+    {
+      "id": "sha256-intent-missing",
+      "mode": "sha256",
+      "inputs": {
+        "seq": 2,
+        "at": "2026-10-03T12:00:01+00:00",
+        "kind": "record.registered",
+        "record_id": "rec-42",
+        "payload": {
+          "record_id": "rec-42",
+          "profile": "research-basic-v1"
+        },
+        "prev": "efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef",
+        "operation_intent_sha256": null,
+        "intent_wire": "missing",
+        "key_hex": null
+      },
+      "blob": "{\"at\":\"2026-10-03T12:00:01+00:00\",\"kind\":\"record.registered\",\"payload\":{\"profile\":\"research-basic-v1\",\"record_id\":\"rec-42\"},\"prev\":\"efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef\",\"record_id\":\"rec-42\",\"seq\":2}",
+      "blob_encoding": "utf-8",
+      "expected_digest": "d33c6110a4a8f8e9185e7459c81e8b68b7981e6722b13d94811f9ec1dcae1937"
+    },
+    {
+      "id": "sha256-intent-set",
+      "mode": "sha256",
+      "inputs": {
+        "seq": 2,
+        "at": "2026-10-03T12:00:01+00:00",
+        "kind": "record.registered",
+        "record_id": "rec-42",
+        "payload": {
+          "record_id": "rec-42",
+          "profile": "research-basic-v1"
+        },
+        "prev": "efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef",
+        "operation_intent_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "intent_wire": "set",
+        "key_hex": null
+      },
+      "blob": "{\"at\":\"2026-10-03T12:00:01+00:00\",\"kind\":\"record.registered\",\"operation_intent_sha256\":\"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"payload\":{\"profile\":\"research-basic-v1\",\"record_id\":\"rec-42\"},\"prev\":\"efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef\",\"record_id\":\"rec-42\",\"seq\":2}",
+      "blob_encoding": "utf-8",
+      "expected_digest": "6c87af467376a284ca8dd0cf4a869ece75458736ba906b70f80c4479a85ae958"
+    },
+    {
+      "id": "hmac-intent-set",
+      "mode": "hmac",
+      "inputs": {
+        "seq": 2,
+        "at": "2026-10-03T12:00:01+00:00",
+        "kind": "record.registered",
+        "record_id": "rec-42",
+        "payload": {
+          "record_id": "rec-42",
+          "profile": "research-basic-v1"
+        },
+        "prev": "efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef",
+        "operation_intent_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "intent_wire": "set",
+        "key_hex": "6b65792d31323334353637383930313233343536"
+      },
+      "blob": "{\"at\":\"2026-10-03T12:00:01+00:00\",\"kind\":\"record.registered\",\"operation_intent_sha256\":\"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"payload\":{\"profile\":\"research-basic-v1\",\"record_id\":\"rec-42\"},\"prev\":\"efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef\",\"record_id\":\"rec-42\",\"seq\":2}",
+      "blob_encoding": "utf-8",
+      "expected_digest": "309562b2462cad9b4633da2a873f44f802ff37bdcd02d1f5c72df7155b181ac1"
+    }
+  ],
+  "key_hint": "hmac key: hex of b'key-1234567890123456'"
+}

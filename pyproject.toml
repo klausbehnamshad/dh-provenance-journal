@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dh-provenance-journal"
+version = "0.1.0"
+description = "Eigenständiger Journalkern für DH-Provenienz: append-only Ereignisjournal mit Hashverkettung (research-basic-v1)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Klaus Behnam Shad" }]
+dependencies = []
+
+[project.scripts]
+provjournal = "provenance_journal.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-q"

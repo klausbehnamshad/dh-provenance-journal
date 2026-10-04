@@ -1,0 +1,92 @@
+name: ci
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python-version: ["3.11", "3.13"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Suite
+        run: |
+          python -m pip install pytest
+          python -m pytest tests/
+      - name: Build
+        run: |
+          python -m pip install build
+          python -m build
+      - name: Installed nine-command flow outside the source tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --target "$RUNNER_TEMP/pjinst" \
+            --no-index --no-deps --no-compile dist/*.whl
+          export PYTHONPATH="$RUNNER_TEMP/pjinst"
+          BIN="$RUNNER_TEMP/pjinst/bin/provjournal"
+          WORK="$RUNNER_TEMP/pjflow"
+          mkdir -p "$WORK"
+          cd "$WORK"
+          printf 'Quelle-Eins\n' > quelle.txt
+          printf 'Ergebnis-Eins\n' > ergebnis.txt
+          printf '{"schwelle": 3}' > params.json
+          J=(--journal journal.jsonl)
+          "$BIN" "${J[@]}" init
+          "$BIN" "${J[@]}" register --record rec-01
+          "$BIN" "${J[@]}" ingest --record rec-01 \
+            --file quelle.txt --media-type text/plain
+          "$BIN" "${J[@]}" artifact --record rec-01 \
+            --artifact erg.txt --file ergebnis.txt
+          "$BIN" "${J[@]}" receipt --record rec-01 --artifact erg.txt \
+            --output ergebnis.txt --input quelle=quelle.txt \
+            --step ableitung --code-version v1 --params-file params.json
+          "$BIN" "${J[@]}" decide --record rec-01 --artifact erg.txt \
+            --file ergebnis.txt --verdict ACCEPT \
+            --reference PI-1 --actor "A. Nau"
+          "$BIN" "${J[@]}" verify | grep "Kette: gültig (6 Ereignisse)"
+          "$BIN" "${J[@]}" history | grep "aktuelle Fassung"
+          "$BIN" "${J[@]}" check-artifact --record rec-01 \
+            --artifact erg.txt --file ergebnis.txt \
+            | grep "registriert (aktuelle Fassung, seq 4)"
+      - name: Installed HMAC nine-command flow outside the source tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --target "$RUNNER_TEMP/pjinst" \
+            --no-index --no-deps --no-compile dist/*.whl
+          export PYTHONPATH="$RUNNER_TEMP/pjinst"
+          BIN="$RUNNER_TEMP/pjinst/bin/provjournal"
+          KEYDIR="$RUNNER_TEMP/pjkey"
+          mkdir -p "$KEYDIR"
+          printf 'hmac-ci-schluessel-auftrag-04' > "$KEYDIR/journal.key"
+          WORK="$RUNNER_TEMP/pjflow-hmac"
+          mkdir -p "$WORK"
+          cd "$WORK"
+          printf 'Quelle-Eins\n' > quelle.txt
+          printf 'Ergebnis-Eins\n' > ergebnis.txt
+          printf '{"schwelle": 3}' > params.json
+          H=(--journal journal.jsonl --integrity hmac --key-file "$KEYDIR/journal.key")
+          "$BIN" "${H[@]}" init
+          "$BIN" "${H[@]}" register --record rec-01
+          "$BIN" "${H[@]}" ingest --record rec-01 \
+            --file quelle.txt --media-type text/plain
+          "$BIN" "${H[@]}" artifact --record rec-01 \
+            --artifact erg.txt --file ergebnis.txt
+          "$BIN" "${H[@]}" receipt --record rec-01 --artifact erg.txt \
+            --output ergebnis.txt --input quelle=quelle.txt \
+            --step ableitung --code-version v1 --params-file params.json
+          "$BIN" "${H[@]}" decide --record rec-01 --artifact erg.txt \
+            --file ergebnis.txt --verdict ACCEPT \
+            --reference PI-1 --actor "A. Nau"
+          "$BIN" "${H[@]}" verify | grep "Kette: gültig (6 Ereignisse)"
+          "$BIN" "${H[@]}" history | grep "aktuelle Fassung"
+          "$BIN" "${H[@]}" check-artifact --record rec-01 \
+            --artifact erg.txt --file ergebnis.txt \
+            | grep "registriert (aktuelle Fassung, seq 4)"

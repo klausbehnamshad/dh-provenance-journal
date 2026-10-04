@@ -1,0 +1,8 @@
+# The source archive carries code, tests with helpers and fixed
+# fixtures, the synthetic example and the public docs. Internal orders,
+# roadmap, review reports and audit evidence stay local.
+recursive-include src *.py
+recursive-include tests *.py *.json
+recursive-include examples *.txt *.json *.md *.sh
+include README.md LICENSE NOTICE.md CITATION.cff CONTRIBUTING.md pyproject.toml
+include docs/CLI.md docs/FORMAT.md docs/NUTZUNG.md docs/WIEDERHERSTELLUNG.md docs/AUSBAU.md

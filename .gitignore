@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+build/
+dist/
+*.egg-info/
+.venv/
+
+# Local journals, locks, configs and keys never enter version control
+journal.jsonl
+*.lock
+*.config.json
+*.key
