@@ -23,8 +23,14 @@ um Deutung und Grenzen für Fachkolleginnen und -kollegen.
   letzte Entscheidung nach `seq`, niemals nach Zeitstempel.
 
 Technischer Erfolg und `ACCEPT` ergeben **keine wissenschaftliche
-Freigabe** des Projekts. Das Journal belegt Aufbewahrung und Reihenfolge,
-keine inhaltliche Richtigkeit.
+Freigabe** des Projekts. Das Journal dokumentiert erfasste Beziehungen
+und die Reihenfolge der Einträge. Es beweist weder die Vollständigkeit
+der Interviewgeschichte noch die tatsächliche Ausführung eines Schritts
+oder den realen Zeitpunkt. Dateiinhalt und wissenschaftliche Richtigkeit
+werden dadurch nicht bestätigt; Dateien werden nicht archiviert.
+Die letzte registrierte Fassung ist nicht automatisch die beste oder
+freigegebene Fassung. Praktische Gegenmaßnahmen und kurze Merksätze stehen
+in der [Argumentation auf Deutsch und Englisch](ARGUMENTATION-DE-EN.md).
 
 ## Identität, Fassungen, Filter, ungebundene Akte
 

@@ -1,33 +1,41 @@
 # dh-provenance-journal
 
-**A small tool for tracing how digital research files came about and how they were assessed.**
+**A small provenance journal for registered research files, processing records, and revision-specific decisions.**
 
-Which file was the original source? How did a particular result revision come about?
-Which revision was reviewed, and which decision belongs to it?
-The journal keeps these connections in a continuous event list.
-It is useful, for example, for interview material, transcripts, annotations,
-or data exports in the digital humanities.
+Which source file was registered? Which result revision was reviewed?
+Which recorded decision applies to the file you have now?
+The journal makes these recorded relationships inspectable for interview
+material, transcripts, annotations, and data exports in the digital humanities.
+
+It records events submitted through its API or command line. It does not
+automatically discover every interview or certify a complete project history.
+Its practical contribution is precise file and decision attribution, together
+with verification of the recorded event chain.
 
 The principle comes from the OHPIPE journal. The tool works on its own:
 through the terminal command `provjournal`, or from Python with the package
 `provenance_journal`. You need no programming skills to try it;
 just run the commands shown below.
 
-**Please note: the command-line help and all tool output are currently in German.**
+**Please note: the command-line help and human-readable terminal output are currently in German.**
 Your terminal will show German words; this guide explains them in English
-and always quotes the actual German output unchanged.
+and quotes the actual German terminal output unchanged. JSON field names are in English.
 The detailed step-by-step guide is likewise in German
 (see [Deutsche Kurzfassung](#deutsche-kurzfassung) below).
 
 ## Deutsche Kurzfassung
 
-Dieses Werkzeug dokumentiert Entstehung und Beurteilung digitaler Forschungsdateien
-in einem fortlaufenden Journal. Eine typische Anwendung ist ein Oral-History-Projekt,
-in dem Quellen, Transkriptfassungen, Belege sowie Zustimmung oder Ablehnung festgehalten
-werden. Eine Entscheidung gilt dabei stets für eine konkrete Dateifassung mit ihrem
-Dateihash, nicht pauschal für einen Dateinamen. Der ausführliche
-[Schritt-für-Schritt-Guide](docs/EINSTIEG-SCHRITT-FUER-SCHRITT.md) erklärt auf Deutsch
-Download, Installation, jeden Journalbefehl und die erwarteten Ausgaben.
+Das Werkzeug verknüpft registrierte Quellen, Ergebnisfassungen, erklärte
+Arbeitsschritte und Entscheidungen. Entscheidungen werden einem Arbeitsgegenstand,
+einem Artefakt und einem Dateihash zugeordnet; veränderte Bytes übernehmen keine
+frühere Zustimmung. Die algorithmische Prüfung kontrolliert die vorliegende
+Ereigniskette und das Basisprofil, nicht die vollständige Geschichte oder die
+wissenschaftliche Wahrheit eines Interviews. Vollständige Erfassung, geschützte
+Vergleichsstände und Aufbewahrung der Forschungsdateien brauchen zusätzliche
+Projektverfahren. Der [deutsche Einsteiger-Guide](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/docs/EINSTIEG-SCHRITT-FUER-SCHRITT.md)
+erklärt den Ablauf; [kurze Merksätze und die ausführliche Argumentation auf Deutsch
+und Englisch](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/docs/ARGUMENTATION-DE-EN.md)
+helfen bei der Vorstellung gegenüber Fachkollegen.
 
 ## What you can document in everyday research
 
@@ -40,7 +48,7 @@ A typical flow in an oral-history project:
 5. A reworked version gets its own entry and its own decision.
 
 The decision on the first revision stays visible with that revision.
-Changed file bytes do not take it over automatically.
+Changed file bytes do not inherit that decision.
 
 The journal recognises files by their **hash**, a digital fingerprint computed
 from the file bytes. The file name alone is not enough to assign a decision.
@@ -56,13 +64,38 @@ You never have to compute hashes yourself.
 | **Revision** | The actual bytes of a result file; a change produces a different hash. Called *Fassung* in the German output. |
 | **Receipt** | Your explanation of which inputs and which step produced a revision. Called *Beleg* in the German output. |
 | **Decision** | `ACCEPT` (approval), `REJECT` (rejection), or `WITHDRAW` (withdrawal), each applying to one specific revision. |
-| **Journal** | The continuous file `journal.jsonl`. New events are appended; existing entries are never edited. |
+| **Journal** | The continuous file `journal.jsonl`. The application appends events and checks the existing chain before writing. Direct file replacement requires external safeguards. |
 
-An artifact has several concrete revisions, and a decision always belongs to the
-file hash of its revision — never broadly to the file name.
+An artifact can have several concrete revisions. A decision is bound to the
+combination of record ID, artifact ID, and file hash. Matching bytes in another
+record or under another artifact name do not transfer the decision.
 The current revision follows the order in which revisions were registered in the
 journal. File names like `v1` and `v2` help orientation but do not set the status
 by themselves.
+
+## What you can rely on
+
+- **Revision-specific review:** recorded decisions belong to a record, artifact,
+  and hash. A changed output does not inherit another revision's approval.
+- **Inspectable records:** sources, declared processing inputs and outputs, and
+  decisions remain visible in the history. The current revision means the latest
+  registered one, not necessarily the best or approved one.
+- **Technical verification:** `verify` checks the stored chain and supported payloads.
+  It does not check for omitted interviews, prove that a processing step ran, or
+  re-read all original research files.
+
+Short phrases for explaining the tool:
+
+> The journal makes recorded workflows inspectable.
+>
+> Approval stays with its specific revision.
+>
+> Verification checks the recorded event chain.
+>
+> Technical validity does not establish scholarly truth.
+
+See [the bilingual argument and operating checklist](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/docs/ARGUMENTATION-DE-EN.md)
+for what these statements mean and how to strengthen the evidence.
 
 ## Installation
 
@@ -107,7 +140,7 @@ provjournal --help
 Expectation: a successful installation of `dh-provenance-journal-0.1.0` and
 help text listing nine commands. `(.venv)` at the start of the terminal line
 usually shows that your own environment is active. If an error appears, find
-its cause first; the [guide](docs/EINSTIEG-SCHRITT-FUER-SCHRITT.md) (in German)
+its cause first; the [guide](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/docs/EINSTIEG-SCHRITT-FUER-SCHRITT.md) (in German)
 explains each step individually.
 
 ### From a provided release package
@@ -193,7 +226,7 @@ Basis: 6 gültig, 0 ungültig, 0 fachlich ungeprüft
 ```
 
 That is: "chain: valid (6 events)"; "base profile: 6 valid, 0 invalid,
-0 substantively unchecked". It confirms inner consistency, not scholarly
+0 substantively unchecked". It confirms internal consistency, not scholarly
 correctness.
 
 | Command | What it tells you |
@@ -224,7 +257,7 @@ Now the second revision is current (`seq 7`), but it still has **no supported
 decision** (`keine unterstützte Entscheidung zu dieser Fassung` — "no supported
 decision for this revision"). The earlier approval was not carried over.
 How to enter the new receipt and the new approval and compare both revisions
-is shown by the [guide from step 14 onward](docs/EINSTIEG-SCHRITT-FUER-SCHRITT.md#14-ergänzung-und-neue-zustimmung-dokumentieren) (in German).
+is shown by the [guide from step 14 onward](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/docs/EINSTIEG-SCHRITT-FUER-SCHRITT.md#14-ergänzung-und-neue-zustimmung-dokumentieren) (in German).
 
 ## Continuing later
 
@@ -241,17 +274,42 @@ No need to install or initialise again. Adjust the folder names if you chose
 others. `deactivate` ends the Python environment; your files stay in place.
 Start a new trial in a new folder.
 
-## What the journal shows — and what remains your responsibility
+## Evidence, safeguards, and limits
 
-- The journal stores **hashes and metadata**, not file contents. Keep the sources,
-  revisions, `journal.jsonl`, and `journal.jsonl.config.json`; there is no automatic archiving.
-- A run receipt documents your explanation of a processing step. The tool does not
-  carry out the step itself and does not prove on its own that it was carried out.
-- `verify` checks the inner consistency of the journal at hand. A technically valid
-  chain is no scholarly approval. Without an independently kept reference copy,
-  a valid but shortened journal file can go unnoticed.
-- A decision's actor entry is a stored statement. Even the optional HMAC mode
-  confirms key possession, not personal identity.
+The application checks the existing journal before appending an event. This
+protects the normal writing workflow; it does not make the file impossible to
+replace outside the application.
+
+| What matters | Implemented in v0.1.0 | Additional project safeguard |
+|---|---|---|
+| Which revision a decision applies to | Matching by record ID, artifact ID, and hash | Check the actual deliverable with `check-artifact` and review its decision. |
+| Consistency of recorded events | Sequence, hash-chain, and supported payload checks | Compare against independently protected earlier snapshots. |
+| Coverage of interviews and required steps | Explicit registration through the API or CLI | Maintain a project inventory and check required steps for each record. |
+| Whether processing really happened | Receipts store declared inputs, outputs, step, and version | Retain actual execution logs, parameters, software, and files; review them. |
+| Identity and time | Actor and time are stored information; HMAC adds key-based integrity | Use controlled access and additional identity/time evidence when required. |
+| Availability and confidentiality | Hashes and metadata are stored; file contents are not archived | Preserve sources, revisions, journal, and configuration; protect keys and sensitive metadata. |
+
+**A valid chain is not proof of an unchanged complete history.** In SHA-256 mode,
+a person with write access can rewrite entries and recompute the chain. HMAC
+requires the secret key for recomputation, but does not prevent removing trailing
+events or restoring an older valid journal. Preserve verified snapshots where
+the journal writer cannot silently replace them. Compare the earlier recorded
+prefix with later states; a full-file hash changes after legitimate appends.
+Built-in external checkpoints and digital signatures are not provided in v0.1.0.
+
+A receipt is a reported processing step, not execution attestation. An actor name
+is a stated identity; HMAC does not prove a particular person's authorship.
+Sequence numbers establish the order of recording, not independently confirmed
+real-world dates. A valid payload does not establish scholarly correctness.
+
+Keep the research files, `journal.jsonl`, and `journal.jsonl.config.json`, and test
+recovery from backups. Hashes cannot reconstruct lost interviews or transcripts.
+Filenames, notes, actors, and parameters may contain identifying information;
+use suitable identifiers and access controls. Research journals belong in protected
+project storage, not in the public software repository.
+
+The [bilingual argument and operating checklist](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/docs/ARGUMENTATION-DE-EN.md)
+explains the safeguards and separates existing features from planned extensions.
 
 Exit codes: **0** technically successful; **1** check/read error, or, for
 `check-artifact`, unassigned bytes; **2** invalid arguments or configuration.
@@ -259,19 +317,20 @@ A rejection on scholarly grounds (`REJECT`) is by itself no technical error.
 
 ## Further reading
 
-The guide and the documents below are written in German.
+These are direct links to the documents in the public repository.
+The practical guide and technical references are in German; the argument is bilingual.
 
-| You want to … | Read here |
-|---|---|
-| Follow every step with its expected output | [Step-by-step guide (in German)](docs/EINSTIEG-SCHRITT-FUER-SCHRITT.md) |
-| Understand use and meaning in everyday research | [Usage notes (in German)](docs/NUTZUNG.md) |
-| Look up all commands and JSON output | [CLI reference (in German)](docs/CLI.md) |
-| Handle damaged or uncontinuable holdings | [Recovery (in German)](docs/WIEDERHERSTELLUNG.md) |
-| Play through a fully prepared example | [Synthetic example (in German)](examples/BEISPIEL.md) |
-| See the test stand and known limits | [Test stand (in German)](docs/PRUEFSTAND.md) |
-| Study the format and hash chaining | [Journal format (in German)](docs/FORMAT.md) |
-| Learn about further development steps | [Extensions (in German)](docs/AUSBAU.md) |
+- [Step-by-step guide (German)](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/docs/EINSTIEG-SCHRITT-FUER-SCHRITT.md): download, installation, and every step with expected output.
+- [Argument and memorable phrases (German / English)](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/docs/ARGUMENTATION-DE-EN.md): benefits, limits, questions from colleagues, and safeguards.
+- [Usage notes (German)](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/docs/NUTZUNG.md): how to interpret the results.
+- [CLI reference (German)](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/docs/CLI.md): commands, exit codes, and JSON output.
+- [Recovery guide (German)](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/docs/WIEDERHERSTELLUNG.md): handling damaged journals and resuming from suitable backups.
+- [Synthetic example (German)](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/examples/BEISPIEL.md): a prepared demonstration with invented data.
+- [Validation status (German)](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/docs/PRUEFSTAND.md): tested combinations and known limits.
+- [Journal format (German)](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/docs/FORMAT.md): event structure and hash chaining.
+- [Development roadmap (German)](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/docs/AUSBAU.md): planned extensions.
 
 For development: [CONTRIBUTING.md](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/CONTRIBUTING.md).
-License: [MIT](LICENSE). Code provenance: [NOTICE.md](NOTICE.md).
+License: [MIT](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/LICENSE).
+Code provenance: [NOTICE.md](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/NOTICE.md).
 Citing the software: [CITATION.cff](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/CITATION.cff).
