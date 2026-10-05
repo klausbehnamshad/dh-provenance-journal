@@ -1,13 +1,32 @@
 cff-version: 1.2.0
-title: dh-provenance-journal
+title: 'dh-provenance-journal: A provenance journal for registered research files
+  and revision-specific decisions'
 version: 0.1.0
 type: software
 message: If you use this software, please cite it as below.
 license: MIT
-abstract: Append-only provenance journal with hash chaining (SHA-256 or HMAC)
-  for digital humanities research data. Package provenance_journal, CLI
-  provjournal. Standard library only.
+abstract: A small provenance journal for registered research files, processing records,
+  and revision-specific decisions in digital humanities projects, including interview
+  material, transcripts, annotations, and data exports. Events are submitted through
+  the provjournal command line or the provenance_journal Python API and appended to
+  a journal with SHA-256 or HMAC-SHA-256 hash chaining. Decisions refer to one record,
+  one artifact, and one file hash; changed bytes do not inherit an earlier approval.
+  Verification checks the stored event chain and supported payloads. It does not discover
+  unregistered material, prove that a processing step ran, establish personal identity,
+  or certify a complete project history. Research files must be preserved separately.
+  Python 3.11 or newer; standard library only at runtime. Command-line output is in
+  German. The journal core derives from OHPIPE, as described in NOTICE.md.
 authors:
-  - given-names: Klaus
-    family-names: Behnam Shad
+- given-names: Klaus
+  family-names: Behnam Shad
+  orcid: https://orcid.org/0000-0002-3601-9024
+  affiliation: Centre for Contemporary and Digital History (C2DH), Université du Luxembourg
 repository-code: https://github.com/klausbehnamshad/dh-provenance-journal
+keywords:
+- provenance
+- digital humanities
+- oral history
+- research data management
+- hash chaining
+- append-only journal
+- decision log

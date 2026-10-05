@@ -1,4 +1,4 @@
-# Prüfstand (v0.1.0-Kandidat)
+# Prüfstand (v0.1.0)
 
 Geprüft wird der Stand auf `main` des Repositorys
 <https://github.com/klausbehnamshad/dh-provenance-journal>.

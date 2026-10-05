@@ -334,3 +334,7 @@ For development: [CONTRIBUTING.md](https://github.com/klausbehnamshad/dh-provena
 License: [MIT](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/LICENSE).
 Code provenance: [NOTICE.md](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/NOTICE.md).
 Citing the software: [CITATION.cff](https://github.com/klausbehnamshad/dh-provenance-journal/blob/main/CITATION.cff).
+
+## Development note
+
+AI coding assistants were used during development and review. Design decisions, release approval, and responsibility remain with Klaus Behnam Shad.
